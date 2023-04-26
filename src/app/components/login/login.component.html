@@ -1,26 +1,41 @@
-<div class="sidenav">
-  <div class="login-main-text">
-    <h2 class="display-4">The Grocery Store<br /></h2>
-    <h3 class="display-1">{{ title }}</h3>
-  </div>
-</div>
-<div class="main">
-  <div class="col-md-6 col-sm-12">
-    <div class="login-form">
-      <form>
-        <div class="form-group">
-          <label>{{ userName }}</label>
-          <input type="text" class="form-control" placeholder="User Name" />
-        </div>
-        <div class="form-group">
-          <label>{{ password }}</label>
-          <input type="password" class="form-control" placeholder="Password" />
-        </div>
-        <button routerLink="inventory" type="submit" class="btn btn-black">
-          Login
-        </button>
-        <button type="submit" class="btn btn-secondary">Register</button>
-      </form>
+<section class="h-screen">
+  <div class="h-full">
+    <div
+      class="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between"
+    >
+      <div
+        class="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-9/12 md:shrink-0 lg:w-6/12 xl:w-6/12"
+      >
+        <img src="../../../assets/images/shoppingcart.jpg" alt="Sample image" />
+      </div>
+      <div class="mb-12 md:mb-0 md:w-8/12 lg:w-5/12 xl:w-5/12">
+        <form class="example-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>User Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter your name"
+              name="usename"
+              [(ngModel)]="username"
+            />
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              placeholder="Enter your password"
+              value=""
+              name="password"
+              type="password"
+              [(ngModel)]="password"
+            />
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="submit()">
+            Submit
+          </button>
+          <span *ngIf="show"> <button mat-button color="accent"></button></span>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+</section>

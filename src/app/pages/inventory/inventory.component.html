@@ -1,2 +1,93 @@
 <app-title></app-title>
-<p>inventory works!</p>
+<div class="flex flex-col">
+  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+      <div class="container">
+        <div class="justify-center col col-lg-9">
+          <div class="input-group mt-1 mb-5">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Item Name"
+              aria-describedby="addButton"
+              [(ngModel)]="newItem.name"
+              required="true"
+            />
+            <input
+              type="number"
+              (keypress)="decimalFilter($event)"
+              min="0.000000"
+              value="0.00"
+              class="form-control"
+              placeholder="Item Price"
+              aria-describedby="addButton"
+              [(ngModel)]="newItem.price"
+              required="true"
+            />
+            <app-inventory-button
+              (onClick)="functioncall($event)"
+              [label]="addLabel"
+              (click)="saveItem()"
+              id="addButton"
+            ></app-inventory-button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <table class="min-w-full text-left text-sm font-light mt-2 mb-2">
+          <thead
+            class="border-b bg-neutral-100 font-medium text-white dark:border-neutral-300 dark:bg-neutral-600"
+          >
+            <tr>
+              <td scope="col" class="px-6 py-4">ID</td>
+              <td scope="col" class="px-6 py-4">Name</td>
+              <td scope="col" class="px-6 py-4">Price</td>
+              <td scope="col" class="px-6 py-4">Price with Tax</td>
+              <td scope="col" class="px-6 py-4">Edit</td>
+              <td scope="col" class="px-6 py-4">Delete</td>
+              <td scope="col" class="px-6 py-4">Apply Taxes</td>
+            </tr>
+            <tr *ngFor="let items of inventory; let &quot;i-index&quot;">
+              <td scope="col" class="px-6 py-4">{{ items.id }}</td>
+              <td scope="col" class="px-6 py-4">{{ items.name }}</td>
+              <td scope="col" class="px-6 py-4">
+                $ {{ formatPrice(items.price) }}
+              </td>
+              <td scope="col" class="px-6 py-4">
+                $ {{ formatPrice(items.price + items.price * items.tax) }}
+              </td>
+              <td scope="col" class="px-6 py-4">
+                <button (click)="editItem(items.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </td>
+              <td scope="col" class="px-6 py-4">
+                <button (click)="deleteItem(items.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+              <td scope="col" class="px-6 py-4">
+                <div style="width: 70%">
+                  <ng-multiselect-dropdown
+                    name="taxes"
+                    [(ngModel)]="selectedTaxes"
+                    [placeholder]="'Select Taxes'"
+                    formControlName="selectedTaxesForm"
+                    [settings]="selectedTaxesSettings"
+                    [data]="taxes"
+                    [disabled]="false"
+                    selectall="false"
+                    type="Tax"
+                    (onSelect)="onItemSelect($event, items.id)"
+                    (onDeSelect)="onItemDeSelect($event, items.id)"
+                  >
+                  </ng-multiselect-dropdown>
+                </div>
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

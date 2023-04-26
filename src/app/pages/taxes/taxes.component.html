@@ -1,2 +1,49 @@
 <app-title></app-title>
-<p>taxes works!</p>
+<div class="flex flex-col">
+  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+      <div class="overflow-hidden">
+        <table class="min-w-full text-left text-sm font-light mt-2 mb-2">
+          <thead
+            class="border-b bg-neutral-100 font-medium text-white dark:border-neutral-300 dark:bg-neutral-600"
+          >
+            <th scope="col" class="px-6 py-4">Tax Name</th>
+            <th scope="col" class="px-6 py-4">Tax Percentage</th>
+            <tr *ngFor="let tax of taxes; let &quot;i-index&quot;">
+              <td scope="col" class="px-6 py-4">{{ tax.name }}</td>
+              <td scope="col" class="px-6 py-4">
+                {{ formatPercentage(tax.percentage) }}
+              </td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="justify-center col col-lg-9">
+    <div class="input-group mt-1 mb-5">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Tax Name"
+        aria-describedby="addButton"
+        [(ngModel)]="tax.name"
+      />
+      <input
+        type="number"
+        class="form-control"
+        placeholder="Tax Percent"
+        aria-describedby="addButton"
+        [(ngModel)]="tax.percentage"
+      />
+      <app-inventory-button
+        (onClick)="functioncall($event)"
+        [label]="addLabel"
+        (click)="saveItem()"
+        id="addButton"
+      ></app-inventory-button>
+    </div>
+  </div>
+</div>
